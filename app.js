@@ -2,6 +2,8 @@
 // JOB AGENT PWA
 // ============================================================
 
+const API_URL = 'https://job-agent-proxy.d-lockwood6.workers.dev';
+
 const STORAGE = {
   saved: 'ja:saved',
   alerts: 'ja:alerts',
@@ -78,7 +80,7 @@ For each, return a JSON object with: title, employer, location, salary (string, 
 Return ONLY a JSON array of these 8 objects. No preamble, no markdown fences, no trailing text. If you genuinely cannot find live listings, return an empty array [].`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -270,7 +272,7 @@ OPENING LINE
 No preamble. No closing remarks. Use the format exactly.`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -279,11 +281,12 @@ No preamble. No closing remarks. Use the format exactly.`;
         messages: [{ role: 'user', content: prompt }],
       }),
     });
+    if (!response.ok) throw new Error(`API ${response.status}`);
     const data = await response.json();
     const text = data.content.map(b => b.text || '').filter(Boolean).join('\n');
-    analysisEl.textContent = text;
+    analysisEl.textContent = text || "No analysis returned. Try again.";
   } catch (err) {
-    analysisEl.textContent = "Couldn't generate analysis. Try again.";
+    analysisEl.innerHTML = `<div style="color: var(--accent);">Couldn't generate analysis: ${escapeHtml(err.message)}. Try again.</div>`;
   }
 }
 
