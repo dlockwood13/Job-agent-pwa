@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Job Agent</title>
   <meta name="description" content="Live Assistant Psychologist job search, ranked by fit." />
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#1a1612" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Job Agent" />
@@ -24,21 +25,21 @@
 <body>
   <div id="install-banner" class="install-banner" hidden>
     <span>Install Job Agent on your home screen</span>
-    <button id="install-btn">Install</button>
-    <button id="install-dismiss" aria-label="Dismiss">×</button>
+    <button id="install-btn" type="button">Install</button>
+    <button id="install-dismiss" type="button" aria-label="Dismiss">×</button>
   </div>
 
   <main class="app">
     <header class="hero">
-      <div class="mono accent">⬢ JOB AGENT · v1</div>
+      <div class="mono accent">⬢ JOB AGENT · v3</div>
       <h1>Assistant<br /><em>Psychologist.</em></h1>
       <p class="lede">Live search, ranked by fit to your background.</p>
     </header>
 
     <nav class="tabs" role="tablist">
-      <button class="tab active" data-tab="search" role="tab">Search</button>
-      <button class="tab" data-tab="saved" role="tab">Saved <span id="saved-count" class="count">0</span></button>
-      <button class="tab" data-tab="alerts" role="tab">Alerts</button>
+      <button class="tab active" data-tab="search" type="button" role="tab">Search</button>
+      <button class="tab" data-tab="saved" type="button" role="tab">Saved <span id="saved-count" class="count">0</span></button>
+      <button class="tab" data-tab="alerts" type="button" role="tab">Alerts</button>
     </nav>
 
     <!-- SEARCH TAB -->
@@ -46,11 +47,11 @@
       <div class="search-card">
         <label class="field">
           <span class="field-icon">⌕</span>
-          <input id="q-role" type="text" value="Assistant Psychologist" placeholder="Role" />
+          <input id="q-role" type="text" value="Assistant Psychologist" placeholder="Role" autocomplete="off" />
         </label>
         <label class="field">
           <span class="field-icon">◉</span>
-          <input id="q-loc" type="text" value="United Kingdom" placeholder="Location" />
+          <input id="q-loc" type="text" value="United Kingdom" placeholder="Location" autocomplete="off" />
         </label>
         <label class="field">
           <span class="field-icon">⚙</span>
@@ -63,7 +64,7 @@
             <option value="research">Research / academic</option>
           </select>
         </label>
-        <button id="run-btn" class="btn-primary">
+        <button id="run-btn" class="btn-primary" type="button">
           <span class="btn-label">Run Agent</span>
         </button>
       </div>
@@ -92,12 +93,12 @@
       <div class="alert-card">
         <h3>Daily check-ins</h3>
         <p>Get a reminder once a day to run a fresh search. The app needs to be open or recently used for this to fire.</p>
-        <button id="enable-alerts" class="btn-secondary">Enable reminders</button>
+        <button id="enable-alerts" class="btn-secondary" type="button">Enable reminders</button>
         <div id="alerts-status" class="alerts-status"></div>
       </div>
       <div class="alert-card subtle">
         <h4>About background push</h4>
-        <p class="muted">True push notifications (delivered when the app is closed) require a backend server to send them. This PWA uses local reminders only — honest about the limits.</p>
+        <p class="muted">True push notifications (delivered when the app is closed) require a backend with scheduled tasks. This PWA uses local reminders only — honest about the limits.</p>
       </div>
     </section>
   </main>
@@ -105,19 +106,19 @@
   <!-- Job detail modal -->
   <div id="modal" class="modal-backdrop" hidden>
     <div class="modal" role="dialog" aria-modal="true">
-      <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+      <button class="modal-close" id="modal-close" type="button" aria-label="Close">×</button>
       <div class="mono accent" style="margin-bottom: 8px;">⬢ FIT ANALYSIS</div>
       <h2 id="modal-title"></h2>
       <div id="modal-employer" class="muted" style="margin-bottom: 24px; font-size: 14px;"></div>
       <div id="modal-analysis" class="analysis"></div>
       <div class="modal-footer">
-        <button id="modal-save" class="btn-secondary">♡ Save</button>
+        <button id="modal-save" class="btn-secondary" type="button">♡ Save</button>
         <a id="modal-link" class="btn-primary" target="_blank" rel="noopener noreferrer">Open listing →</a>
       </div>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
