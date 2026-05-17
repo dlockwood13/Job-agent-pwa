@@ -1,5 +1,5 @@
-// Job Agent — service worker v3
-const CACHE = 'job-agent-v3';
+// Job Agent — service worker v4
+const CACHE = 'job-agent-v4';
 const SHELL = [
   './',
   './index.html',
