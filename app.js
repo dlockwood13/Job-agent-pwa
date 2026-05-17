@@ -2,7 +2,7 @@
 // JOB AGENT PWA — v3
 // ============================================================
 
-const API_URL = 'https://job-agent-proxy.d-lockwood6.workers.dev';
+const API_URL = 'https://job-agent-api.d-lockwood6.workers.dev';
 const MODEL = 'claude-sonnet-4-20250514';
 
 const STORAGE = {
