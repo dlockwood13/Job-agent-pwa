@@ -3,7 +3,7 @@
 // ============================================================
 
 const API_URL = 'https://job-agent-api.d-lockwood6.workers.dev';
-const MODEL = 'claude-sonnet-4-20250514';
+const MODEL = 'claude-sonnet-4-6';
 
 const STORAGE = {
   saved: 'ja:saved',
