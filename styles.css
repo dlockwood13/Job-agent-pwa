@@ -146,7 +146,7 @@ body {
   background: transparent;
   outline: none;
   font-family: inherit;
-  font-size: 16px; /* 16px prevents iOS zoom */
+  font-size: 16px;
   color: var(--ink);
   width: 100%;
 }
@@ -163,7 +163,7 @@ body {
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  transition: background 0.2s;
+  transition: background 0.2s, opacity 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -171,6 +171,7 @@ body {
   text-decoration: none;
   min-height: 48px;
 }
+.btn-primary:hover:not(:disabled) { background: var(--accent); }
 .btn-primary:active:not(:disabled) { background: var(--accent); }
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -185,6 +186,7 @@ body {
   border-radius: 4px;
   min-height: 48px;
 }
+.btn-secondary:hover { background: var(--bg); }
 .btn-secondary:active { background: var(--bg); }
 
 /* LOG */
@@ -201,6 +203,7 @@ body {
   color: var(--ink-soft);
   padding: 3px 0;
   animation: slidein 0.3s ease;
+  word-break: break-word;
 }
 .log-line .arrow { color: var(--accent); margin-right: 6px; }
 @keyframes slidein { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: translateX(0); } }
@@ -214,6 +217,18 @@ body {
   color: var(--accent);
   margin-bottom: 16px;
   font-size: 14px;
+  word-break: break-word;
+}
+.error-box strong { display: block; margin-bottom: 4px; }
+.error-box code {
+  display: block;
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: rgba(0,0,0,0.04);
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  white-space: pre-wrap;
 }
 
 /* RESULTS */
@@ -229,7 +244,8 @@ body {
   cursor: pointer;
   transition: transform 0.15s, border-color 0.2s;
 }
-.job-card:active { transform: scale(0.99); border-color: var(--accent); }
+.job-card:hover { border-color: var(--accent); }
+.job-card:active { transform: scale(0.99); }
 
 .fit-badge {
   position: absolute;
@@ -249,13 +265,13 @@ body {
 
 .job-card .save-btn {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 12px;
+  right: 12px;
   background: none;
   border: none;
   font-size: 22px;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
   line-height: 1;
   color: var(--dim);
   transition: color 0.2s, transform 0.2s;
@@ -302,7 +318,7 @@ body {
   align-items: center;
   padding-top: 10px;
   border-top: 1px solid var(--line);
-  margin-right: 36px;
+  margin-right: 50px;
 }
 .job-footer .meta {
   font-family: 'JetBrains Mono', monospace;
@@ -388,6 +404,10 @@ body {
   position: relative;
   animation: slideup 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+@media (min-width: 641px) {
+  .modal-backdrop { align-items: center; }
+  .modal { border-radius: 12px; max-height: 80vh; }
+}
 @keyframes slideup { from { transform: translateY(100%); } to { transform: translateY(0); } }
 .modal-close {
   position: absolute;
@@ -401,7 +421,12 @@ body {
   font-size: 20px;
   cursor: pointer;
   color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
 }
+.modal-close:hover { background: var(--line); }
 .modal h2 {
   font-family: 'Fraunces', serif;
   font-size: 24px;
@@ -416,6 +441,7 @@ body {
   font-size: 15.5px;
   line-height: 1.65;
   color: var(--ink);
+  min-height: 60px;
 }
 .modal-footer {
   display: flex;
@@ -459,6 +485,6 @@ body {
   padding: 2px 8px;
 }
 
-/* LOADING SPIN */
+/* SPIN */
 .spin { display: inline-block; animation: spin 0.9s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
