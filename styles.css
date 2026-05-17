@@ -381,6 +381,7 @@ body {
 }
 
 /* MODAL */
+.modal-backdrop[hidden] { display: none !important; }
 .modal-backdrop {
   position: fixed;
   inset: 0;
