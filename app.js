@@ -34,7 +34,13 @@ const SETTING_LABELS = {
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
-  console.log('[Job Agent] v3 initialising...');
+  console.log('[Job Agent] v4 initialising...');
+
+  // Safety: force modal hidden on init, no matter what
+  const modal = document.getElementById('modal');
+  if (modal) modal.hidden = true;
+  document.body.style.overflow = '';
+
   state.saved = loadSaved();
   bindTabs();
   bindSearch();
