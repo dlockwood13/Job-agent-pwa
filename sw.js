@@ -1,5 +1,5 @@
-// Job Agent — service worker
-const CACHE = 'job-agent-v2';
+// Job Agent — service worker v3
+const CACHE = 'job-agent-v3';
 const SHELL = [
   './',
   './index.html',
@@ -18,9 +18,10 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    ).then(() => self.clients.claim())
+    caches
+      .keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
 });
 
@@ -28,17 +29,13 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
   // Never cache API calls — always go to network
-  if (url.hostname === 'api.anthropic.com') return;
+  if (url.hostname.includes('workers.dev') || url.hostname === 'api.anthropic.com') return;
 
   // Network-first for navigations, cache-first for static assets
   if (event.request.mode === 'navigate') {
-    event.respondWith(
-      fetch(event.request).catch(() => caches.match('./index.html'))
-    );
+    event.respondWith(fetch(event.request).catch(() => caches.match('./index.html')));
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
-  );
+  event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
 });
